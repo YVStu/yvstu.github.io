@@ -9,8 +9,20 @@ const list = document.getElementById('todo-list')
 const itemCountSpan = document.getElementById('item-count')
 const uncheckedCountSpan = document.getElementById('unchecked-count')
 
+
 let todos = [];
 let id=0;
+window.onload=()=>{
+  if (localStorage.length != 0){
+    for (let i = 0; i < localStorage.length; i++) {
+      let key = localStorage.key(i);
+      todos.push(JSON.parse(localStorage.getItem(key)));
+    }
+    id=localStorage.length;
+    render();
+  }
+}
+
 //const todo={id, text, checked};
 
 /*<li>
@@ -25,6 +37,8 @@ function newTodo() {
   text.classList=classNames.TODO_TEXT;
   const todo={ id: id++, text, checked:false };
   todos.push(todo);
+  localStorage.setItem(id-1, JSON.stringify(todo));
+  //console.log('ts',JSON.parse(localStorage.getItem(id)));
   console.log('todos',todos);
   render();
 }
@@ -49,6 +63,7 @@ function renderTodo({id, text, checked}){
 function removeTodo(id){
   console.log('from removeTodo', id);
   todos=todos.filter(todo=>todo.id !==id);
+
   render();
 }
 function toggleTodo(id){
