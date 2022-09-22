@@ -63,7 +63,7 @@ function renderTodo({id, text, checked}){
 function removeTodo(id){
   console.log('from removeTodo', id);
   todos=todos.filter(todo=>todo.id !==id);
-
+  localStorage.removeItem(id);
   render();
 }
 function toggleTodo(id){
